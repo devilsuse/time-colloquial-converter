@@ -10,7 +10,7 @@ import java.util.ResourceBundle;
  * @version 1.0
  */
 
-public abstract class ResourceBundleTimeFormatter implements TimeToSpeechStrategy{
+public abstract class ResourceBundleTimeFormatter extends {
     protected final ResourceBundle bundle;
 
     protected ResourceBundleTimeFormatter(ResourceBundle bundle){
