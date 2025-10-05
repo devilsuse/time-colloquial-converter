@@ -59,6 +59,12 @@ public abstract class LocalizedTimeToSpeechStrategy extends AbstractTimeToSpeech
 
     @Override
     protected String getExactHourText(int hour){
+        return join(getMessage(HOUR_KEY_PREFIX + hour%12),
+                getMessage("oclock"));
+    }
+
+    //@Override
+    private String getHourText(int hour){
         return getMessage(HOUR_KEY_PREFIX + hour%12);
     }
 
@@ -66,7 +72,7 @@ public abstract class LocalizedTimeToSpeechStrategy extends AbstractTimeToSpeech
     protected String formatMinutesBeforeHalfHour(int hour, int minute) {
         return join(resolveMinuteLessThan30(minute),
                 getMessage("past"),
-                getExactHourText(hour));
+                getHourText(hour));
     }
 
     /**
@@ -103,7 +109,7 @@ public abstract class LocalizedTimeToSpeechStrategy extends AbstractTimeToSpeech
     }
 
     private String formatEarlyThirties(int hour, int minute) {
-        String hourText = getExactHourText(hour);
+        String hourText = getHourText(hour);
         String minuteText = join(getMessage(TENS_KEY_PREFIX + "3"), getMinuteText(minute - 30));
         return join(hourText, minuteText);
     }
@@ -111,12 +117,12 @@ public abstract class LocalizedTimeToSpeechStrategy extends AbstractTimeToSpeech
     private String formatMinutesToNextHour(int hour, int minute) {
         int nextHour = getNextHour(hour);
         String minutesToNextHourText = resolveMinuteLessThan30(60 - minute);
-        return join(minutesToNextHourText, getMessage("to"), getExactHourText(nextHour));
+        return join(minutesToNextHourText, getMessage("to"), getHourText(nextHour));
     }
 
     @Override
     protected String standardFiveMinuteMultipleText(int hour, int minute) {
-        String hourText = getExactHourText(hour);
+        String hourText = getHourText(hour);
         if (minute == 15){
             return join(getMessage("quarter_past"), hourText);
         }
@@ -131,9 +137,9 @@ public abstract class LocalizedTimeToSpeechStrategy extends AbstractTimeToSpeech
 
         int nextHour = getNextHour(hour);
         if(minute == 45){
-            return join(getMessage("quarter_to"), getExactHourText(nextHour));
+            return join(getMessage("quarter_to"), getHourText(nextHour));
         }
-        return join(resolveMinuteLessThan30(60 - minute), getMessage("to"), getExactHourText(nextHour));
+        return join(resolveMinuteLessThan30(60 - minute), getMessage("to"), getHourText(nextHour));
     }
 
     private String join(String... parts) {
