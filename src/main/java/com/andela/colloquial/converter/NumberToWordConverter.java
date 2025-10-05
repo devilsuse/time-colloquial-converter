@@ -1,7 +1,5 @@
 package com.andela.colloquial.converter;
 
-import java.util.Map;
-
 /**
  * Converts numbers to the colloquial English equivalents
  *
@@ -13,7 +11,7 @@ import java.util.Map;
  *  * @version 1.0
  */
 public class NumberToWordConverter {
-
+/*
     private static final Map<Integer, String> HOUR_NAMES = Map.ofEntries(
             Map.entry(0, "twelve"),
             Map.entry(1, "one"),
@@ -66,10 +64,10 @@ public class NumberToWordConverter {
         if(minute<20){
             return MINUTES_LESS_THAN_20.get(minute);
         }
-        return buildGreaterThanMinuteKeyword(minute);
+        return buildGreaterThan20MinuteKeyword(minute);
     }
 
-    private String buildGreaterThanMinuteKeyword(int minute) {
+    private String buildGreaterThan20MinuteKeyword(int minute) {
         int tensDigit = minute/10;
         int unitsDigit = minute%10;
 
@@ -77,5 +75,5 @@ public class NumberToWordConverter {
             return TENS.get(tensDigit);
         }
         return TENS.get(tensDigit) + " " + MINUTES_LESS_THAN_20.get(unitsDigit);
-    }
+    }*/
 }
