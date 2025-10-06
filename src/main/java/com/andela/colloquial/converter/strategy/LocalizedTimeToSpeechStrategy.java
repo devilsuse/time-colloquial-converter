@@ -21,13 +21,18 @@ public abstract class LocalizedTimeToSpeechStrategy extends AbstractTimeToSpeech
 
     private static final String BUNDLE_BASE_NAME = "messages";
     protected final ResourceBundle bundle;
+    private final LocalizationException bundleInitError;
 
     protected LocalizedTimeToSpeechStrategy(Locale locale){
+        ResourceBundle loaded = null;
+        LocalizationException initError = null;
         try {
-            this.bundle = ResourceBundle.getBundle(BUNDLE_BASE_NAME, locale);
+            loaded = ResourceBundle.getBundle(BUNDLE_BASE_NAME, locale);
         } catch (MissingResourceException e) {
-            throw new LocalizationException("Resource bundle not found for locale: " + locale, e);
+            initError = new LocalizationException("Resource bundle not found for locale: " + locale, e);
         }
+        this.bundle = loaded;
+        this.bundleInitError = initError;
     }
 
     /**
@@ -38,6 +43,9 @@ public abstract class LocalizedTimeToSpeechStrategy extends AbstractTimeToSpeech
      * //@throws MissingResourceException if no object for the given key can be found.
      */
     protected String getMessage(String key){
+        if (bundle == null) {
+            throw (bundleInitError != null) ? bundleInitError : new LocalizationException("Resource bundle not initialized", null);
+        }
         try {
             return bundle.getString(key);
         } catch (MissingResourceException e) {

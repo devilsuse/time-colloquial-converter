@@ -64,19 +64,6 @@ Input → Output:
     - Other ApplicationException → error with message
     - Unexpected exceptions → error with stack trace
 
-Usage in CLI:
-```text
-TimeToColloquialApp.process(...) wraps conversion and delegates any Throwable to ErrorHandler.handleAndReport.
-Empty or badly formatted inputs throw InvalidInputException; missing bundles/keys throw LocalizationException.
-```
-
-### Logging
-The CLI prints prompts and results to the console for a clean interactive experience. If you prefer structured logging (e.g., SLF4J or `java.util.logging`), you can route messages accordingly without changing the conversion logic.
-
-Notes with the error handler:
-- User input issues are logged at WARN; operational/configuration issues at ERROR.
-- Adjust log levels or messages by editing `ErrorHandler`.
-
 ### Quality and Reports
 - SpotBugs (runs at `verify`):
   - XML: `target/spotbugsXml.xml`
