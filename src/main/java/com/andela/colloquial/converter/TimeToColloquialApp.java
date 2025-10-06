@@ -7,10 +7,14 @@ import java.time.format.DateTimeParseException;
 import java.util.Map;
 import java.util.Scanner;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.andela.colloquial.converter.strategy.TimeToSpeechStrategy;
 
 public class TimeToColloquialApp {
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("H:mm");
+    private static final Logger LOG = LoggerFactory.getLogger(TimeToColloquialApp.class);
     private static final Map<String, String> EXAMPLES = Map.of(
             "1:00", "one o'clock",
             "2:05", "five past two",
@@ -30,14 +34,14 @@ public class TimeToColloquialApp {
     }
 
     private static void printUsage() {
-        System.out.println("╔══════════════════════════════════════════════════════════════════╗");
-        System.out.println("║        Colloquial Time Converter(British)                        ║");
-        System.out.println("╚══════════════════════════════════════════════════════════════════╝");
-        System.out.println(" Usage:");
-        System.out.println("\n  Interactive mode:");
-        System.out.println("    1. Enter time(H:mm) to get colloquially converted form");
-        System.out.println("    2. To end type: 'exit', type 'help' for examples\n");
-        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        LOG.info("╔══════════════════════════════════════════════════════════════════╗");
+        LOG.info("║        Colloquial Time Converter(British)                        ║");
+        LOG.info("╚══════════════════════════════════════════════════════════════════╝");
+        LOG.info(" Usage:");
+        LOG.info("\n  Interactive mode:");
+        LOG.info("    1. Enter time(H:mm) to get colloquially converted form");
+        LOG.info("    2. To end type: 'exit', type 'help' for examples\n");
+        LOG.info("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     }
 
     private static void runInteractiveMode(TimeToSpeechStrategy colloquialConverter) {
@@ -69,9 +73,9 @@ public class TimeToColloquialApp {
     private static void process(TimeToSpeechStrategy colloquialConverter, String input) {
         try {
             String result = convert(colloquialConverter, input);
-            System.out.println(result + "\n");
+            LOG.info("{}", result);
         } catch (IllegalArgumentException e) {
-            System.out.printf("   X Error: %s%n%n", e.getMessage());
+            LOG.warn("X Error: {}", e.getMessage());
         }
     }
 
@@ -92,14 +96,12 @@ public class TimeToColloquialApp {
 
 
     private static void printExitMessage() {
-        System.out.println("\n Exiting......");
+        LOG.info("\n Exiting......");
     }
 
     private static void printExamples() {
-        System.out.println("\nExample conversions:");
-        EXAMPLES.forEach((time, text) ->
-                System.out.printf(" %s  -> %s%n", time, text)
-        );
+        LOG.info("\nExample conversions:");
+        EXAMPLES.forEach((time, text) -> LOG.info(" {}  -> {}", time, text));
         System.out.print("Enter time (H:mm): ");
     }
 
