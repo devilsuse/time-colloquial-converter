@@ -20,10 +20,8 @@ public abstract class LocalizedTimeToSpeechStrategy extends AbstractTimeToSpeech
 
     private static final String BUNDLE_BASE_NAME = "messages";
     protected final ResourceBundle bundle;
-    protected final Locale locale;
 
     protected LocalizedTimeToSpeechStrategy(Locale locale){
-        this.locale=locale;
         this.bundle = ResourceBundle.getBundle(BUNDLE_BASE_NAME, locale);
     }
 

@@ -1,12 +1,13 @@
 package com.andela.colloquial.converter;
 
-import com.andela.colloquial.converter.strategy.TimeToSpeechStrategy;
-
+import java.nio.charset.StandardCharsets;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Map;
 import java.util.Scanner;
+
+import com.andela.colloquial.converter.strategy.TimeToSpeechStrategy;
 
 public class TimeToColloquialApp {
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("H:mm");
@@ -41,7 +42,7 @@ public class TimeToColloquialApp {
 
     private static void runInteractiveMode(TimeToSpeechStrategy colloquialConverter) {
         System.out.print("Enter time (H:mm): ");
-        try(Scanner scanner = new Scanner(System.in)){
+        try(Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8)){
             while(scanner.hasNext()){
                 String input = readInput(scanner);
 
@@ -80,7 +81,7 @@ public class TimeToColloquialApp {
         }
 
         try {
-            LocalTime time = LocalTime.parse(timeString.trim(), TIME_FORMATTER);
+            var time = LocalTime.parse(timeString.trim(), TIME_FORMATTER);
             return colloquialConverter.convertToSpokenForm(time);
         } catch (DateTimeParseException e) {
             throw new IllegalArgumentException(
