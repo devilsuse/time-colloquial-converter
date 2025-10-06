@@ -76,7 +76,7 @@ public class TimeToColloquialApp {
         try {
             String result = convert(colloquialConverter, input);
             LOG.info("{}", result);
-        } catch (Throwable e) {
+        } catch (com.andela.colloquial.converter.exception.ApplicationException e) {
             ErrorHandler.handleAndReport(e);
         }
     }
