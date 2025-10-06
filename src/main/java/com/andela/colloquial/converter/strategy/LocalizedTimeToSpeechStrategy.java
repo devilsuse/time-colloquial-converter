@@ -1,6 +1,5 @@
 package com.andela.colloquial.converter.strategy;
 
-import java.time.LocalTime;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -44,11 +43,6 @@ public abstract class LocalizedTimeToSpeechStrategy extends AbstractTimeToSpeech
         } catch (MissingResourceException e) {
             throw new LocalizationException("Missing localization key: " + key, e);
         }
-    }
-
-    @Override
-    public String convertToSpokenForm(LocalTime time) {
-        return super.convertToSpokenForm(time);
     }
 
     @Override

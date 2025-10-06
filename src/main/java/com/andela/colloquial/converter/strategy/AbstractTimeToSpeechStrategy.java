@@ -32,7 +32,7 @@ public abstract class AbstractTimeToSpeechStrategy implements TimeToSpeechStrate
             return getNoonText();
         }
 
-        if(isExactHour(hour, minute)){
+        if(isExactHour(minute)){
             return getExactHourText(hour);
         }
 
@@ -67,7 +67,7 @@ public abstract class AbstractTimeToSpeechStrategy implements TimeToSpeechStrate
         return hour == 12 && minute == 0;
     }
 
-    protected boolean isExactHour(int hour, int minute) {
+    protected boolean isExactHour(int minute) {
         return minute==0;
     }
 
