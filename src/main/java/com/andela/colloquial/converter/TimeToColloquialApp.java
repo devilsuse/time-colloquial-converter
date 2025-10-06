@@ -10,6 +10,8 @@ import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.andela.colloquial.converter.exception.ErrorHandler;
+import com.andela.colloquial.converter.exception.InvalidInputException;
 import com.andela.colloquial.converter.strategy.TimeToSpeechStrategy;
 
 public class TimeToColloquialApp {
@@ -74,21 +76,21 @@ public class TimeToColloquialApp {
         try {
             String result = convert(colloquialConverter, input);
             LOG.info("{}", result);
-        } catch (IllegalArgumentException e) {
-            LOG.warn("X Error: {}", e.getMessage());
+        } catch (Throwable e) {
+            ErrorHandler.handleAndReport(e);
         }
     }
 
     private static String convert(TimeToSpeechStrategy colloquialConverter,String timeString) {
         if (timeString == null || timeString.trim().isEmpty()) {
-            throw new IllegalArgumentException("Time cannot be null or empty");
+            throw new InvalidInputException("Time cannot be null or empty");
         }
 
         try {
             var time = LocalTime.parse(timeString.trim(), TIME_FORMATTER);
             return colloquialConverter.convertToSpokenForm(time);
         } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException(
+            throw new InvalidInputException(
                     "Invalid time format. Expected format: H:mm or HH:mm (e.g., 9:30 or 09:30)", e
             );
         }

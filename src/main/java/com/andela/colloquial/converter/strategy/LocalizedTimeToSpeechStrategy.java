@@ -5,6 +5,8 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import com.andela.colloquial.converter.exception.LocalizationException;
+
 /**
  * An abstract base class for time formatters that use a ResourceBundle
  * to localize time-related strings (e.g., "one", "past", "quarter").
@@ -22,7 +24,11 @@ public abstract class LocalizedTimeToSpeechStrategy extends AbstractTimeToSpeech
     protected final ResourceBundle bundle;
 
     protected LocalizedTimeToSpeechStrategy(Locale locale){
-        this.bundle = ResourceBundle.getBundle(BUNDLE_BASE_NAME, locale);
+        try {
+            this.bundle = ResourceBundle.getBundle(BUNDLE_BASE_NAME, locale);
+        } catch (MissingResourceException e) {
+            throw new LocalizationException("Resource bundle not found for locale: " + locale, e);
+        }
     }
 
     /**
@@ -36,7 +42,7 @@ public abstract class LocalizedTimeToSpeechStrategy extends AbstractTimeToSpeech
         try {
             return bundle.getString(key);
         } catch (MissingResourceException e) {
-            return "???" + key + "???";
+            throw new LocalizationException("Missing localization key: " + key, e);
         }
     }
 
