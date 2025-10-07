@@ -34,7 +34,7 @@ jobs:
         run: |
           mvn -B -DskipTests=false clean verify \
             org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
-            -Dsonar.projectKey=time-colloquial-converter \
+            -Dsonar.projectKey=devilsuse_time-colloquial-converter \
             -Dsonar.organization=Amit Kumar \
             -Dsonar.host.url=https://sonarcloud.io
 
