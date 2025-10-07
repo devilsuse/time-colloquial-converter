@@ -16,6 +16,7 @@ import java.time.LocalTime;
  * 3. Handle standard vs non-standard times
  * 4. Apply language specific formatting
  *
+ *  @author Amit Kumar
  */
 public abstract class AbstractTimeToSpeechStrategy implements TimeToSpeechStrategy{
 

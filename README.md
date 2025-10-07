@@ -23,6 +23,23 @@ This command compile, tests, SpotBugs, and generates JaCoCo coverage reports.
 ### Run (CLI)
 Interactive command-line app
 
+Steps for runnning the project involves building the project followed by running the build as below:
+
+Windows (PowerShell):
+```powershell
+mvn -q -DskipTests clean package dependency:copy-dependencies -DoutputDirectory=target/dependency
+java -cp "target/classes;target/dependency/*" com.andela.colloquial.converter.TimeToColloquialApp
+```
+
+Linux/macOS:
+```bash
+mvn -q -DskipTests clean package dependency:copy-dependencies -DoutputDirectory=target/dependency
+java -cp "target/classes:target/dependency/*" com.andela.colloquial.converter.TimeToColloquialApp
+```
+
+Notes:
+- The project does not produce a fat/executable JAR by default; use the classpath command above.
+- Java logs will show usage instructions on startup.
 
 Then follow the on-screen prompt:
 - Enter time in H:mm or HH:mm (e.g., 6:13, 06:13)
@@ -42,13 +59,13 @@ Input → Output:
 - `com.andela.colloquial.converter.strategy.AbstractTimeToSpeechStrategy`: Template method for the core algorithm
 - `com.andela.colloquial.converter.strategy.LocalizedTimeToSpeechStrategy`: ResourceBundle-backed localization base
 - `com.andela.colloquial.converter.strategy.BritishTimeToSpeechStrategy`: British implementation
-- `com.andela.colloquial.converter.TimeToColloquialConverterFactory`: Static factory with a cached British instance
+- `com.andela.colloquial.converter.TimeToColloquialConverters`: Static provider with a cached British instance
 - `com/andela/colloquial/converter/TimeToColloquialApp`: CLI entry point
 - `src/main/resources/messages_en_GB.properties`: Localized phrases
 
 ### Design Notes
 - The conversion algorithm is expressed once in the abstract base (template method), delegating language-specific bits to concrete strategies.
-- A **static factory** (`TimeToColloquialConverterFactory`) returns a cached, thread-safe British strategy instance to avoid unnecessary allocations.
+- A **static provider** (`TimeToColloquialConverters`) returns a cached, thread-safe British strategy instance to avoid unnecessary allocations.
 - Input validation is explicit; exceptions surface invalid formats early.
 
 ### Exception Handling

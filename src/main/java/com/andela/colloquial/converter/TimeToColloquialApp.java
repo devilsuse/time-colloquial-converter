@@ -30,7 +30,7 @@ public class TimeToColloquialApp {
      */
     public static void main(String[] args) {
         // No arguments - show usage and enter interactive mode.
-        TimeToSpeechStrategy colloquialConverter = TimeToColloquialConverterFactory.britishTimeToColloquialConverter();
+        TimeToSpeechStrategy colloquialConverter = TimeToColloquialConverters.britishTimeToColloquialConverter();
         printUsage();
         runInteractiveMode(colloquialConverter);
     }

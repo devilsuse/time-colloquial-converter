@@ -12,13 +12,13 @@ import org.junit.jupiter.api.Test;
 import com.andela.colloquial.converter.strategy.BritishTimeToSpeechStrategy;
 import com.andela.colloquial.converter.strategy.TimeToSpeechStrategy;
 
-class TimeToColloquialConverterFactoryTest {
+class TimeToColloquialConvertersTest {
 
     @Test
-    @DisplayName("britishTimeToColloquialConverter returns a cached singleton instance")
+    @DisplayName("britishTimeToColloquialConverter returns a cached singleton instance (provider)")
     void returnsSingleton() {
-        TimeToSpeechStrategy instance1 = TimeToColloquialConverterFactory.britishTimeToColloquialConverter();
-        TimeToSpeechStrategy instance2 = TimeToColloquialConverterFactory.britishTimeToColloquialConverter();
+        TimeToSpeechStrategy instance1 = TimeToColloquialConverters.britishTimeToColloquialConverter();
+        TimeToSpeechStrategy instance2 = TimeToColloquialConverters.britishTimeToColloquialConverter();
 
         assertNotNull(instance1);
         assertSame(instance1, instance2, "Factory should return the same cached instance");
@@ -28,12 +28,14 @@ class TimeToColloquialConverterFactoryTest {
     @Test
     @DisplayName("britishTimeToColloquialConverter returns same instance across repeated calls")
     void repeatedCallsReturnSameInstance() {
-        TimeToSpeechStrategy first = TimeToColloquialConverterFactory.britishTimeToColloquialConverter();
+        TimeToSpeechStrategy first = TimeToColloquialConverters.britishTimeToColloquialConverter();
         boolean allSame = IntStream.range(0, 10)
-                .mapToObj(i -> TimeToColloquialConverterFactory.britishTimeToColloquialConverter())
+                .mapToObj(i -> TimeToColloquialConverters.britishTimeToColloquialConverter())
                 .allMatch(inst -> inst == first);
         assertTrue(allSame, "All calls should return the same singleton instance");
     }
 }
+
+
 
 

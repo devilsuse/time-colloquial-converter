@@ -11,7 +11,6 @@ import com.andela.colloquial.converter.exception.LocalizationException;
  * to localize time-related strings (e.g., "one", "past", "quarter").
  *
  * @author Amit Kumar
- * @version 1.0
  */
 
 public abstract class LocalizedTimeToSpeechStrategy extends AbstractTimeToSpeechStrategy{

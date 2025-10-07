@@ -10,7 +10,7 @@ import java.time.LocalTime;
  * implementations for various colloquial time formats (British, American, etc.).
  *
  * @author Amit Kumar
- * @version 1.0
+ * 
  */
 public interface TimeToSpeechStrategy {
 
