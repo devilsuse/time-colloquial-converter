@@ -2,6 +2,7 @@ package com.andela.colloquial.converter;
 
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -37,10 +38,13 @@ public final class TimeParsers {
     static {
         List<DateTimeFormatter> list = new ArrayList<>();
         for (String p : TIME_PATTERNS) {
-            list.add(new DateTimeFormatterBuilder()
+            DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                 .parseCaseInsensitive()
+                .parseStrict()
                 .appendPattern(p)
-                .toFormatter());
+                .toFormatter()
+                .withResolverStyle(ResolverStyle.STRICT);
+            list.add(formatter);
         }
         FORMATTERS = Collections.unmodifiableList(list);
     }
